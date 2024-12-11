@@ -1,6 +1,22 @@
 import Page from "@/components/Page";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    getContent();
+  }, []);
+
+  async function getContent() {
+    const res = await fetch("/api/get-content");
+    const json = await res.json();
+
+    if (json.success) {
+      setContent(json.content)
+    }
+  }
+
   async function addChapter() {
     const res = await fetch("/api/add-chapter", { method: "POST" });
     const json = await res.json();
@@ -22,7 +38,11 @@ export default function HomePage() {
       </div>
       <div className="grid grid-cols-2">
         <div className="bg-amber-50" style={{ height: "calc(100vh - 48px)" }}>
-          
+          {content && content.map(chapter => (
+            <div key={chapter.id}>
+              {JSON.stringify(chapter)}
+            </div>
+          ))}
         </div>
         <div className="bg-amber-100" style={{ height: "calc(100vh - 48px)" }}>
 
