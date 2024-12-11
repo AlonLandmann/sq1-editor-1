@@ -1,0 +1,45 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Chapter {
+  id       Int       @id @default(autoincrement())
+  index    Int
+  name     String
+  sections Section[]
+}
+
+model Section {
+  id        Int     @id @default(autoincrement())
+  index     Int
+  name      String
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
+  chapterId Int
+  units     Unit[]
+}
+
+model Unit {
+  id        Int     @id @default(autoincrement())
+  index     Int
+  type      String
+  name      String?
+  content   String?
+  proof     String?
+  Section   Section @relation(fields: [sectionId], references: [id])
+  sectionId Int
+  parts     Part[]
+}
+
+model Part {
+  id      Int     @id @default(autoincrement())
+  index   Int
+  content String
+  proof   String?
+  Unit    Unit    @relation(fields: [unitId], references: [id])
+  unitId  Int
+}
