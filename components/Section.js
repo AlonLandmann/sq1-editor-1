@@ -1,6 +1,13 @@
+import Unit from "./Unit";
+
 export default function Section({ section }) {
   async function addUnit() {
+    const res = await fetch(`/api/add-unit?sectionId=${section.id}`, { method: "POST" });
+    const json = await res.json();
 
+    if (json.success) {
+      window.location.reload();
+    }
   }
 
   return (
@@ -15,6 +22,14 @@ export default function Section({ section }) {
         <div>Id: {section.id}</div>
         <div>Index: {section.index}</div>
         <div>Name: {section.name}</div>
+      </div>
+      <div className="ml-16">
+        {section.units.map(unit => (
+          <Unit
+            key={unit.id}
+            unit={unit}
+          />
+        ))}
       </div>
     </div>
   );
