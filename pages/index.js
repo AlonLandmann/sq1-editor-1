@@ -1,3 +1,4 @@
+import Chapter from "@/components/Chapter";
 import Page from "@/components/Page";
 import { useEffect, useState } from "react";
 
@@ -28,7 +29,7 @@ export default function HomePage() {
 
   return (
     <Page title="Editor">
-      <div className="h-12 flex items-center px-2">
+      <div className="h-12 flex items-center">
         <button
           className="py-1 px-2 text-sm underline hover:text-neutral-500"
           onClick={addChapter}
@@ -39,9 +40,10 @@ export default function HomePage() {
       <div className="grid grid-cols-2">
         <div className="bg-amber-50" style={{ height: "calc(100vh - 48px)" }}>
           {content && content.map(chapter => (
-            <div key={chapter.id}>
-              {JSON.stringify(chapter)}
-            </div>
+            <Chapter
+              key={chapter.id}
+              chapter={chapter}
+            />
           ))}
         </div>
         <div className="bg-amber-100" style={{ height: "calc(100vh - 48px)" }}>
