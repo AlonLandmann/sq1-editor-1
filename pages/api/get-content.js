@@ -7,11 +7,24 @@ export default async function (req, res) {
                 include: {
                     units: {
                         include: {
-                            parts: true,
+                            parts: {
+                                orderBy: {
+                                    index: "asc",
+                                },
+                            },
+                        },
+                        orderBy: {
+                            index: "asc",
                         },
                     },
                 },
+                orderBy: {
+                    index: "asc",
+                },
             },
+        },
+        orderBy: {
+            index: "asc",
         },
     });
 
