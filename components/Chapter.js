@@ -23,7 +23,7 @@ export default function Chapter({ chapter }) {
                 <div>Index: {chapter.index}</div>
                 <div>Name: {chapter.name}</div>
             </div>
-            <div className="ml-16 mb-16">
+            <div className="ml-16">
                 {chapter.sections.map(section => (
                     <Section
                         key={section.id}
