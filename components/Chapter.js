@@ -1,7 +1,7 @@
 import Section from "./Section";
 
 export default function Chapter({ chapter }) {
-    async function addSection() {
+    async function handleAddSection() {
         const res = await fetch(`/api/add-section?chapterId=${chapter.id}`, { method: "POST" });
         const json = await res.json();
 
@@ -23,12 +23,30 @@ export default function Chapter({ chapter }) {
         }
     }
 
+    async function handleRenameChapter() {
+        const renameValue = window.prompt("Enter a new name: ");
+
+        const res = await fetch(`/api/rename-chapter?chapterId=${chapter.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ renameValue }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        } else {
+            window.alert(json.message);
+        }
+    }
+
     return (
         <div>
             <div className="flex gap-2">
                 <button
                     className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={addSection}
+                    onClick={handleAddSection}
                 >
                     Add section
                 </button>
@@ -37,6 +55,12 @@ export default function Chapter({ chapter }) {
                     onClick={handleDeleteChapter}
                 >
                     Delete chapter
+                </button>
+                <button
+                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
+                    onClick={handleRenameChapter}
+                >
+                    Rename chapter
                 </button>
                 <div>Id: {chapter.id}</div>
                 <div>Index: {chapter.index}</div>

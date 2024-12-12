@@ -1,7 +1,7 @@
 import Unit from "./Unit";
 
 export default function Section({ section }) {
-    async function addUnit() {
+    async function handleAddUnit() {
         const res = await fetch(`/api/add-unit?sectionId=${section.id}`, { method: "POST" });
         const json = await res.json();
 
@@ -23,12 +23,30 @@ export default function Section({ section }) {
         }
     }
 
+    async function handleRenameSection() {
+        const renameValue = window.prompt("Enter a new name: ");
+
+        const res = await fetch(`/api/rename-section?sectionId=${section.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ renameValue }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        } else {
+            window.alert(json.message);
+        }
+    }
+
     return (
         <div>
             <div className="flex gap-2">
                 <button
                     className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={addUnit}
+                    onClick={handleAddUnit}
                 >
                     Add unit
                 </button>
@@ -37,6 +55,12 @@ export default function Section({ section }) {
                     onClick={handleDeleteSection}
                 >
                     Delete section
+                </button>
+                <button
+                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
+                    onClick={handleRenameSection}
+                >
+                    Rename section
                 </button>
                 <div>Id: {section.id}</div>
                 <div>Index: {section.index}</div>

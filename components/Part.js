@@ -10,6 +10,22 @@ export default function Part({ part }) {
         }
     }
 
+    async function handleRenamePart() {
+        const renameValue = window.prompt("Enter a new name: ");
+
+        const res = await fetch(`/api/rename-part?partId=${part.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ renameValue }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        }
+    }
+
     return (
         <div className="flex gap-2">
             <button
@@ -17,6 +33,12 @@ export default function Part({ part }) {
                 onClick={handleDelete}
             >
                 Delete part
+            </button>
+            <button
+                className="py-1 px-2 text-sm underline hover:text-neutral-500"
+                onClick={handleRenamePart}
+            >
+                Rename part
             </button>
             <div>Id: {part.id}</div>
             <div>Index: {part.index}</div>
