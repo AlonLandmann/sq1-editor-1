@@ -10,6 +10,19 @@ export default function Unit({ unit }) {
         }
     }
 
+    async function handleDeleteUnit() {
+        if (confirm("Delete unit?")) {
+            const res = await fetch(`/api/delete-unit?unitId=${unit.id}`, { method: "DELETE" });
+            const json = await res.json();
+
+            if (json.success) {
+                window.location.reload();
+            } else {
+                window.alert(json.message);
+            }
+        }
+    }
+
     return (
         <div>
             <div className="flex gap-2">
@@ -18,6 +31,12 @@ export default function Unit({ unit }) {
                     onClick={addPart}
                 >
                     Add part
+                </button>
+                <button
+                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
+                    onClick={handleDeleteUnit}
+                >
+                    Delete unit
                 </button>
                 <div>Id: {unit.id}</div>
                 <div>Index: {unit.index}</div>
