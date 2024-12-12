@@ -1,45 +1,45 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 model Chapter {
-  id       Int       @id @default(autoincrement())
-  index    Int
-  name     String    @default("New chapter")
-  sections Section[]
+    id       Int       @id @default(autoincrement())
+    index    Int
+    name     String    @default("New chapter")
+    sections Section[]
 }
 
 model Section {
-  id        Int     @id @default(autoincrement())
-  index     Int
-  name      String  @default("New section")
-  chapter   Chapter @relation(fields: [chapterId], references: [id])
-  chapterId Int
-  units     Unit[]
+    id        Int     @id @default(autoincrement())
+    index     Int
+    name      String  @default("New section")
+    chapter   Chapter @relation(fields: [chapterId], references: [id])
+    chapterId Int
+    units     Unit[]
 }
 
 model Unit {
-  id        Int     @id @default(autoincrement())
-  index     Int
-  type      String  @default("paragraph")
-  name      String?
-  content   String? @default("---")
-  proof     String?
-  Section   Section @relation(fields: [sectionId], references: [id])
-  sectionId Int
-  parts     Part[]
+    id        Int     @id @default(autoincrement())
+    index     Int
+    type      String  @default("paragraph")
+    name      String?
+    content   String? @default("---")
+    proof     String?
+    section   Section @relation(fields: [sectionId], references: [id])
+    sectionId Int
+    parts     Part[]
 }
 
 model Part {
-  id      Int     @id @default(autoincrement())
-  index   Int
-  content String
-  proof   String?
-  Unit    Unit    @relation(fields: [unitId], references: [id])
-  unitId  Int
+    id      Int     @id @default(autoincrement())
+    index   Int
+    content String  @default("---")
+    proof   String?
+    unit    Unit    @relation(fields: [unitId], references: [id])
+    unitId  Int
 }

@@ -1,16 +1,16 @@
 import prisma from "@/server/prisma";
 
 export default async function handler(req, res) {
-    const unitCount = await prisma.unit.count({
+    const partCount = await prisma.part.count({
         where: {
-            sectionId: Number(req.query.sectionId),
+            unitId: Number(req.query.unitId),
         },
     });
 
-    await prisma.unit.create({
+    await prisma.part.create({
         data: {
-            index: unitCount,
-            sectionId: Number(req.query.sectionId),
+            index: partCount,
+            unitId: Number(req.query.unitId),
         },
     });
 

@@ -3,53 +3,53 @@ import Page from "@/components/Page";
 import { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const [content, setContent] = useState(null);
+	const [content, setContent] = useState(null);
 
-  useEffect(() => {
-    getContent();
-  }, []);
+	useEffect(() => {
+		getContent();
+	}, []);
 
-  async function getContent() {
-    const res = await fetch("/api/get-content");
-    const json = await res.json();
+	async function getContent() {
+		const res = await fetch("/api/get-content");
+		const json = await res.json();
 
-    if (json.success) {
-      setContent(json.content)
-    }
-  }
+		if (json.success) {
+			setContent(json.content)
+		}
+	}
 
-  async function addChapter() {
-    const res = await fetch("/api/add-chapter", { method: "POST" });
-    const json = await res.json();
+	async function addChapter() {
+		const res = await fetch("/api/add-chapter", { method: "POST" });
+		const json = await res.json();
 
-    if (json.success) {
-      window.location.reload();
-    }
-  }
+		if (json.success) {
+			window.location.reload();
+		}
+	}
 
-  return (
-    <Page title="Editor">
-      <div className="h-12 flex items-center">
-        <button
-          className="py-1 px-2 text-sm underline hover:text-neutral-500"
-          onClick={addChapter}
-        >
-          Add chapter
-        </button>
-      </div>
-      <div className="grid grid-cols-2">
-        <div className="bg-amber-50" style={{ height: "calc(100vh - 48px)" }}>
-          {content && content.map(chapter => (
-            <Chapter
-              key={chapter.id}
-              chapter={chapter}
-            />
-          ))}
-        </div>
-        <div className="bg-amber-100" style={{ height: "calc(100vh - 48px)" }}>
+	return (
+		<Page title="Editor">
+			<div className="h-12 flex items-center">
+				<button
+					className="py-1 px-2 text-sm underline hover:text-neutral-500"
+					onClick={addChapter}
+				>
+					Add chapter
+				</button>
+			</div>
+			<div className="grid grid-cols-2">
+				<div className="bg-amber-50" style={{ height: "calc(100vh - 48px)" }}>
+					{content && content.map(chapter => (
+						<Chapter
+							key={chapter.id}
+							chapter={chapter}
+						/>
+					))}
+				</div>
+				<div className="bg-amber-100" style={{ height: "calc(100vh - 48px)" }}>
 
-        </div>
-      </div>
-    </Page>
-  );
+				</div>
+			</div>
+		</Page>
+	);
 };
