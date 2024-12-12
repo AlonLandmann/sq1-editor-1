@@ -10,6 +10,19 @@ export default function Chapter({ chapter }) {
         }
     }
 
+    async function handleDeleteChapter() {
+        if (confirm("Delete chapter?")) {
+            const res = await fetch(`/api/delete-chapter?chapterId=${chapter.id}`, { method: "DELETE" });
+            const json = await res.json();
+
+            if (json.success) {
+                window.location.reload();
+            } else {
+                window.alert(json.message);
+            }
+        }
+    }
+
     return (
         <div>
             <div className="flex gap-2">
@@ -18,6 +31,12 @@ export default function Chapter({ chapter }) {
                     onClick={addSection}
                 >
                     Add section
+                </button>
+                <button
+                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
+                    onClick={handleDeleteChapter}
+                >
+                    Delete chapter
                 </button>
                 <div>Id: {chapter.id}</div>
                 <div>Index: {chapter.index}</div>
