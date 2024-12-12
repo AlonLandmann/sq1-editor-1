@@ -20,6 +20,7 @@ export default function Part({ part }) {
             </button>
             <div>Id: {part.id}</div>
             <div>Index: {part.index}</div>
+            <div>Name: {part.name}</div>
             <div>Content: {part.content}</div>
             <div>Proof: {part.proof}</div>
         </div>
