@@ -1,6 +1,9 @@
+import { useState } from "react";
 import Section from "./Section";
 
 export default function Chapter({ chapter }) {
+    const [collapsed, setCollapsed] = useState(false);
+
     async function handleAddSection() {
         const res = await fetch(`/api/add-section?chapterId=${chapter.id}`, { method: "POST" });
         const json = await res.json();
@@ -43,31 +46,45 @@ export default function Chapter({ chapter }) {
 
     return (
         <div>
-            <div className="flex gap-2">
+            <div className="border p-2 flex gap-3 items-center">
                 <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={handleAddSection}
+                    className="w-8 h-8 flex items-center justify-center text-sm hover:text-neutral-500"
+                    onClick={() => setCollapsed(p => !p)}
                 >
-                    Add section
+                    {collapsed
+                        ? <i className="bi bi-chevron-right"></i>
+                        : <i className="bi bi-chevron-down"></i>
+                    }
                 </button>
-                <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={handleDeleteChapter}
-                >
-                    Delete chapter
-                </button>
-                <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={handleRenameChapter}
-                >
-                    Rename chapter
-                </button>
-                <div>Id: {chapter.id}</div>
-                <div>Index: {chapter.index}</div>
-                <div>Name: {chapter.name}</div>
+                <div className="font-medium text-xl">
+                    {chapter.index + 1}
+                </div>
+                <div className="font-medium text-xl">
+                    {chapter.name}
+                </div>
+                <div className="flex gap-2 ml-auto">
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleAddSection}
+                    >
+                        <i className="bi bi-plus-lg"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleRenameChapter}
+                    >
+                        <i className="bi bi-input-cursor"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleDeleteChapter}
+                    >
+                        <i className="bi bi-trash3"></i>
+                    </button>
+                </div>
             </div>
             <div className="ml-16">
-                {chapter.sections.map(section => (
+                {!collapsed && chapter.sections.map(section => (
                     <Section
                         key={section.id}
                         section={section}

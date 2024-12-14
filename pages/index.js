@@ -38,7 +38,7 @@ export default function HomePage() {
                 </button>
             </div>
             <div className="grid grid-cols-2">
-                <div className="bg-amber-50">
+                <div className="">
                     {content && content.map(chapter => (
                         <Chapter
                             key={chapter.id}
@@ -46,7 +46,7 @@ export default function HomePage() {
                         />
                     ))}
                 </div>
-                <div className="bg-amber-100">
+                <div className="bg-amber-50">
 
                 </div>
             </div>
