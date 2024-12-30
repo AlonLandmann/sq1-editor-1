@@ -56,7 +56,7 @@ export default function Section({ chapterIndex, section }) {
                 className="p-2 flex gap-3 items-center bg-neutral-100"
                 onClick={() => setCollapsed(p => !p)}
             >
-                <div className="text-lg">
+                <div className="text-lg w-10">
                     {chapterIndex + 1}.{section.index + 1}
                 </div>
                 <div className="text-lg">

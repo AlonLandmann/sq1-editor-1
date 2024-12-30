@@ -53,10 +53,10 @@ export default function Chapter({ chapter }) {
     return (
         <div>
             <div
-                className="p-2 flex gap-3 items-center bg-neutral-700 text-neutral-200"
+                className="p-2 flex gap-3 items-center bg-neutral-700 text-neutral-100"
                 onClick={() => setCollapsed(p => !p)}
             >
-                <div className="font-medium text-xl">
+                <div className="font-medium text-xl w-10">
                     {chapter.index + 1}
                 </div>
                 <div className="font-medium text-xl">

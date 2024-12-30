@@ -54,11 +54,11 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
                 className="p-2 flex gap-3 items-center"
                 onClick={() => setCollapsed(p => !p)}
             >
-                <div className="text-base">
+                <div className="text-base w-10">
                     {chapterIndex + 1}.{sectionIndex + 1}.{unit.index + 1}
                 </div>
                 <div className="text-base">
-                    {unit.name}
+                    {unit.name || "---"}
                 </div>
                 <div>Type: {unit.type}</div>
                 <div>Content: {unit.content}</div>
