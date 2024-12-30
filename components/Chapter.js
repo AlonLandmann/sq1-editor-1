@@ -46,7 +46,7 @@ export default function Chapter({ chapter }) {
 
     return (
         <div>
-            <div className="border p-2 flex gap-3 items-center">
+            <div className="p-2 flex gap-3 items-center bg-neutral-700 text-neutral-200">
                 <button
                     className="w-8 h-8 flex items-center justify-center text-sm hover:text-neutral-500"
                     onClick={() => setCollapsed(p => !p)}
@@ -64,19 +64,19 @@ export default function Chapter({ chapter }) {
                 </div>
                 <div className="flex gap-2 ml-auto">
                     <button
-                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        className="w-8 h-8 flex items-center justify-center text-sm border border-neutral-600 rounded-sm hover:text-neutral-400"
                         onClick={handleAddSection}
                     >
                         <i className="bi bi-plus-lg"></i>
                     </button>
                     <button
-                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        className="w-8 h-8 flex items-center justify-center text-sm border border-neutral-600 rounded-sm hover:text-neutral-400"
                         onClick={handleRenameChapter}
                     >
                         <i className="bi bi-input-cursor"></i>
                     </button>
                     <button
-                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        className="w-8 h-8 flex items-center justify-center text-sm border border-neutral-600 rounded-sm hover:text-neutral-400"
                         onClick={handleDeleteChapter}
                     >
                         <i className="bi bi-trash3"></i>
@@ -88,6 +88,7 @@ export default function Chapter({ chapter }) {
                     <Section
                         key={section.id}
                         section={section}
+                        chapterIndex={chapter.index}
                     />
                 ))}
             </div>

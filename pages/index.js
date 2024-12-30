@@ -29,12 +29,12 @@ export default function HomePage() {
 
     return (
         <Page title="Editor">
-            <div className="h-12 sticky top-0 bg-white flex items-center">
+            <div className="h-12 sticky top-0 bg-white flex items-center px-2">
                 <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
+                    className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
                     onClick={addChapter}
                 >
-                    Add chapter
+                    <i className="bi bi-plus-lg"></i>
                 </button>
             </div>
             <div className="grid grid-cols-2">
@@ -46,7 +46,7 @@ export default function HomePage() {
                         />
                     ))}
                 </div>
-                <div className="bg-amber-50">
+                <div className="bg-neutral-100">
 
                 </div>
             </div>

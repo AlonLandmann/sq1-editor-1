@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Unit from "./Unit";
 
-export default function Section({ section }) {
+export default function Section({ section, chapterIndex }) {
     const [collapsed, setCollapsed] = useState(false);
 
     async function handleAddUnit() {
@@ -46,9 +46,9 @@ export default function Section({ section }) {
 
     return (
         <div>
-            <div className="border p-2 flex gap-3 items-center">
+            <div className="p-2 flex gap-3 items-center bg-neutral-100">
                 <button
-                    className="w-8 h-8 flex items-center justify-center text-sm hover:text-neutral-500"
+                    className="w-8 h-8 flex items-center justify-center text-xs hover:text-neutral-500"
                     onClick={() => setCollapsed(p => !p)}
                 >
                     {collapsed
@@ -56,9 +56,12 @@ export default function Section({ section }) {
                         : <i className="bi bi-chevron-down"></i>
                     }
                 </button>
-                <div>Id: {section.id}</div>
-                <div>Index: {section.index}</div>
-                <div>Name: {section.name}</div>
+                <div className="text-lg">
+                    {chapterIndex + 1}.{section.index + 1}
+                </div>
+                <div className="text-lg">
+                    {section.name}
+                </div>
                 <div className="flex gap-2 ml-auto">
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
@@ -80,7 +83,7 @@ export default function Section({ section }) {
                     </button>
                 </div>
             </div>
-            <div className="ml-16">
+            <div>
                 {!collapsed && section.units.map(unit => (
                     <Unit
                         key={unit.id}
