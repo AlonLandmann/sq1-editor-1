@@ -1,6 +1,9 @@
+import { useState } from "react";
 import Part from "./Part";
 
-export default function Unit({ unit }) {
+export default function Unit({ chapterIndex, sectionIndex, unit }) {
+    const [collapsed, setCollapsed] = useState(false);
+
     async function handleAddPart() {
         const res = await fetch(`/api/add-part?unitId=${unit.id}`, { method: "POST" });
         const json = await res.json();
@@ -41,34 +44,48 @@ export default function Unit({ unit }) {
 
     return (
         <div>
-            <div className="flex gap-2">
+            <div className="p-2 flex gap-3 items-center">
                 <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={handleAddPart}
+                    className="w-8 h-8 flex items-center justify-center text-xs hover:text-neutral-500"
+                    onClick={() => setCollapsed(p => !p)}
                 >
-                    Add part
+                    {collapsed
+                        ? <i className="bi bi-chevron-right"></i>
+                        : <i className="bi bi-chevron-down"></i>
+                    }
                 </button>
-                <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={handleDeleteUnit}
-                >
-                    Delete unit
-                </button>
-                <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={handleRenameUnit}
-                >
-                    Rename unit
-                </button>
-                <div>Id: {unit.id}</div>
-                <div>Index: {unit.index}</div>
+                <div className="text-base">
+                    {chapterIndex + 1}.{sectionIndex + 1}.{unit.index + 1}
+                </div>
+                <div className="text-base">
+                    {unit.name}
+                </div>
                 <div>Type: {unit.type}</div>
-                <div>Name: {unit.name}</div>
                 <div>Content: {unit.content}</div>
                 <div>Proof: {unit.proof}</div>
+                <div className="flex gap-2 ml-auto">
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleAddPart}
+                    >
+                        <i className="bi bi-plus-lg"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleRenameUnit}
+                    >
+                        <i className="bi bi-input-cursor"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleDeleteUnit}
+                    >
+                        <i className="bi bi-trash3"></i>
+                    </button>
+                </div>
             </div>
             <div className="ml-16">
-                {unit.parts.map(part => (
+                {!collapsed && unit.parts.map(part => (
                     <Part
                         key={part.id}
                         part={part}

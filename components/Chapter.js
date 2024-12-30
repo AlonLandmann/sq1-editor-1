@@ -87,8 +87,8 @@ export default function Chapter({ chapter }) {
                 {!collapsed && chapter.sections.map(section => (
                     <Section
                         key={section.id}
-                        section={section}
                         chapterIndex={chapter.index}
+                        section={section}
                     />
                 ))}
             </div>
