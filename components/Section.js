@@ -1,6 +1,9 @@
+import { useState } from "react";
 import Unit from "./Unit";
 
 export default function Section({ section }) {
+    const [collapsed, setCollapsed] = useState(false);
+
     async function handleAddUnit() {
         const res = await fetch(`/api/add-unit?sectionId=${section.id}`, { method: "POST" });
         const json = await res.json();
@@ -43,31 +46,42 @@ export default function Section({ section }) {
 
     return (
         <div>
-            <div className="flex gap-2">
+            <div className="border p-2 flex gap-3 items-center">
                 <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={handleAddUnit}
+                    className="w-8 h-8 flex items-center justify-center text-sm hover:text-neutral-500"
+                    onClick={() => setCollapsed(p => !p)}
                 >
-                    Add unit
-                </button>
-                <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={handleDeleteSection}
-                >
-                    Delete section
-                </button>
-                <button
-                    className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                    onClick={handleRenameSection}
-                >
-                    Rename section
+                    {collapsed
+                        ? <i className="bi bi-chevron-right"></i>
+                        : <i className="bi bi-chevron-down"></i>
+                    }
                 </button>
                 <div>Id: {section.id}</div>
                 <div>Index: {section.index}</div>
                 <div>Name: {section.name}</div>
+                <div className="flex gap-2 ml-auto">
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleAddUnit}
+                    >
+                        <i className="bi bi-plus-lg"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleRenameSection}
+                    >
+                        <i className="bi bi-input-cursor"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleDeleteSection}
+                    >
+                        <i className="bi bi-trash3"></i>
+                    </button>
+                </div>
             </div>
             <div className="ml-16">
-                {section.units.map(unit => (
+                {!collapsed && section.units.map(unit => (
                     <Unit
                         key={unit.id}
                         unit={unit}

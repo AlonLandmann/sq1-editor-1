@@ -83,7 +83,7 @@ export default function Chapter({ chapter }) {
                     </button>
                 </div>
             </div>
-            <div className="ml-16">
+            <div>
                 {!collapsed && chapter.sections.map(section => (
                     <Section
                         key={section.id}
