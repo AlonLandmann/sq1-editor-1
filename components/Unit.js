@@ -4,7 +4,9 @@ import Part from "./Part";
 export default function Unit({ chapterIndex, sectionIndex, unit }) {
     const [collapsed, setCollapsed] = useState(false);
 
-    async function handleAddPart() {
+    async function handleAddPart(e) {
+        e.stopPropagation();
+
         const res = await fetch(`/api/add-part?unitId=${unit.id}`, { method: "POST" });
         const json = await res.json();
 
@@ -13,7 +15,9 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
         }
     }
 
-    async function handleDeleteUnit() {
+    async function handleDeleteUnit(e) {
+        e.stopPropagation();
+
         if (confirm("Delete unit?")) {
             const res = await fetch(`/api/delete-unit?unitId=${unit.id}`, { method: "DELETE" });
             const json = await res.json();
@@ -26,7 +30,9 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
         }
     }
 
-    async function handleRenameUnit() {
+    async function handleRenameUnit(e) {
+        e.stopPropagation();
+
         const renameValue = window.prompt("Enter a new name: ");
 
         const res = await fetch(`/api/rename-unit?unitId=${unit.id}`, {
@@ -44,16 +50,10 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
 
     return (
         <div>
-            <div className="p-2 flex gap-3 items-center">
-                <button
-                    className="w-8 h-8 flex items-center justify-center text-xs hover:text-neutral-500"
-                    onClick={() => setCollapsed(p => !p)}
-                >
-                    {collapsed
-                        ? <i className="bi bi-chevron-right"></i>
-                        : <i className="bi bi-chevron-down"></i>
-                    }
-                </button>
+            <div
+                className="p-2 flex gap-3 items-center"
+                onClick={() => setCollapsed(p => !p)}
+            >
                 <div className="text-base">
                     {chapterIndex + 1}.{sectionIndex + 1}.{unit.index + 1}
                 </div>

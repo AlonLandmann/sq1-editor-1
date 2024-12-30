@@ -4,7 +4,9 @@ import Unit from "./Unit";
 export default function Section({ chapterIndex, section }) {
     const [collapsed, setCollapsed] = useState(false);
 
-    async function handleAddUnit() {
+    async function handleAddUnit(e) {
+        e.stopPropagation();
+
         const res = await fetch(`/api/add-unit?sectionId=${section.id}`, { method: "POST" });
         const json = await res.json();
 
@@ -13,7 +15,9 @@ export default function Section({ chapterIndex, section }) {
         }
     }
 
-    async function handleDeleteSection() {
+    async function handleDeleteSection(e) {
+        e.stopPropagation();
+
         if (confirm("Delete section?")) {
             const res = await fetch(`/api/delete-section?sectionId=${section.id}`, { method: "DELETE" });
             const json = await res.json();
@@ -26,7 +30,9 @@ export default function Section({ chapterIndex, section }) {
         }
     }
 
-    async function handleRenameSection() {
+    async function handleRenameSection(e) {
+        e.stopPropagation();
+
         const renameValue = window.prompt("Enter a new name: ");
 
         const res = await fetch(`/api/rename-section?sectionId=${section.id}`, {
@@ -46,16 +52,10 @@ export default function Section({ chapterIndex, section }) {
 
     return (
         <div>
-            <div className="p-2 flex gap-3 items-center bg-neutral-100">
-                <button
-                    className="w-8 h-8 flex items-center justify-center text-xs hover:text-neutral-500"
-                    onClick={() => setCollapsed(p => !p)}
-                >
-                    {collapsed
-                        ? <i className="bi bi-chevron-right"></i>
-                        : <i className="bi bi-chevron-down"></i>
-                    }
-                </button>
+            <div
+                className="p-2 flex gap-3 items-center bg-neutral-100"
+                onClick={() => setCollapsed(p => !p)}
+            >
                 <div className="text-lg">
                     {chapterIndex + 1}.{section.index + 1}
                 </div>

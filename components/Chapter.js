@@ -4,7 +4,9 @@ import Section from "./Section";
 export default function Chapter({ chapter }) {
     const [collapsed, setCollapsed] = useState(false);
 
-    async function handleAddSection() {
+    async function handleAddSection(e) {
+        e.stopPropagation();
+
         const res = await fetch(`/api/add-section?chapterId=${chapter.id}`, { method: "POST" });
         const json = await res.json();
 
@@ -13,7 +15,9 @@ export default function Chapter({ chapter }) {
         }
     }
 
-    async function handleDeleteChapter() {
+    async function handleDeleteChapter(e) {
+        e.stopPropagation();
+        
         if (confirm("Delete chapter?")) {
             const res = await fetch(`/api/delete-chapter?chapterId=${chapter.id}`, { method: "DELETE" });
             const json = await res.json();
@@ -26,7 +30,9 @@ export default function Chapter({ chapter }) {
         }
     }
 
-    async function handleRenameChapter() {
+    async function handleRenameChapter(e) {
+        e.stopPropagation();
+        
         const renameValue = window.prompt("Enter a new name: ");
 
         const res = await fetch(`/api/rename-chapter?chapterId=${chapter.id}`, {
@@ -46,16 +52,10 @@ export default function Chapter({ chapter }) {
 
     return (
         <div>
-            <div className="p-2 flex gap-3 items-center bg-neutral-700 text-neutral-200">
-                <button
-                    className="w-8 h-8 flex items-center justify-center text-sm hover:text-neutral-500"
-                    onClick={() => setCollapsed(p => !p)}
-                >
-                    {collapsed
-                        ? <i className="bi bi-chevron-right"></i>
-                        : <i className="bi bi-chevron-down"></i>
-                    }
-                </button>
+            <div
+                className="p-2 flex gap-3 items-center bg-neutral-700 text-neutral-200"
+                onClick={() => setCollapsed(p => !p)}
+            >
                 <div className="font-medium text-xl">
                     {chapter.index + 1}
                 </div>
