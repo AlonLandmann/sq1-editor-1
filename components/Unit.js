@@ -84,10 +84,13 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
                     </button>
                 </div>
             </div>
-            <div className="ml-16">
+            <div>
                 {!collapsed && unit.parts.map(part => (
                     <Part
                         key={part.id}
+                        chapterIndex={chapterIndex}
+                        sectionIndex={sectionIndex}
+                        unitIndex={unit.index}
                         part={part}
                     />
                 ))}

@@ -1,5 +1,5 @@
-export default function Part({ part }) {
-    async function handleDelete() {
+export default function Part({ chapterIndex, sectionIndex, unitIndex, part }) {
+    async function handleDeletePart() {
         if (confirm("Delete part?")) {
             const res = await fetch(`/api/delete-part?partId=${part.id}`, { method: "DELETE" });
             const json = await res.json();
@@ -27,24 +27,29 @@ export default function Part({ part }) {
     }
 
     return (
-        <div className="flex gap-2">
-            <button
-                className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                onClick={handleDelete}
-            >
-                Delete part
-            </button>
-            <button
-                className="py-1 px-2 text-sm underline hover:text-neutral-500"
-                onClick={handleRenamePart}
-            >
-                Rename part
-            </button>
-            <div>Id: {part.id}</div>
-            <div>Index: {part.index}</div>
-            <div>Name: {part.name}</div>
+        <div className="p-2 flex gap-3 items-center pl-14">
+            <div className="text-sm">
+                {chapterIndex + 1}.{sectionIndex + 1}.{unitIndex + 1}.{part.index + 1}
+            </div>
+            <div className="text-sm">
+                {part.name}
+            </div>
             <div>Content: {part.content}</div>
             <div>Proof: {part.proof}</div>
+            <div className="flex gap-2 ml-auto">
+                <button
+                    className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                    onClick={handleRenamePart}
+                >
+                    <i className="bi bi-input-cursor"></i>
+                </button>
+                <button
+                    className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                    onClick={handleDeletePart}
+                >
+                    <i className="bi bi-trash3"></i>
+                </button>
+            </div>
         </div>
     );
 };
