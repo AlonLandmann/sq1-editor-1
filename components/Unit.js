@@ -57,12 +57,14 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
                 <div className="text-base w-10">
                     {chapterIndex + 1}.{sectionIndex + 1}.{unit.index + 1}
                 </div>
-                <div className="text-base">
-                    Name: {unit.name}
+                <div className="text-base w-6 text-neutral-500">
+                    {unit.type.charAt(0).toUpperCase()}
                 </div>
-                <div>Type: {unit.type}</div>
-                <div>Content: {unit.content}</div>
-                <div>Proof: {unit.proof}</div>
+                {unit.name &&
+                    <div className="text-base">
+                        {unit.name}
+                    </div>
+                }
                 <div className="flex gap-2 ml-auto">
                     {unit.type !== "paragraph" &&
                         <button
