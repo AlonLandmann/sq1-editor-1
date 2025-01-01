@@ -4,15 +4,24 @@ export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
     return (
         <div>
             <div className="p-2 flex gap-3 items-center">
-                <div className="text-base w-10">
-                    {chapterIndex + 1}.{sectionIndex + 1}.{unit.index + 1}
-                </div>
-                <div className="text-base w-6 text-neutral-500">
-                    {unit.type.charAt(0).toUpperCase()}
-                </div>
-                {unit.name &&
-                    <div className="text-base">
+                {unit.type !== "paragraph" &&
+                    <div className="w-10">
+                        {chapterIndex + 1}.{sectionIndex + 1}.{unit.index + 1}
+                    </div>
+                }
+                {unit.type !== "paragraph" &&
+                    <div className="w-6 text-neutral-500">
+                        {unit.type.charAt(0).toUpperCase()}
+                    </div>
+                }
+                {unit.type !== "paragraph" &&
+                    <div>
                         {unit.name}
+                    </div>
+                }
+                {unit.type === "paragraph" &&
+                    <div>
+                        {unit.content}
                     </div>
                 }
             </div>
