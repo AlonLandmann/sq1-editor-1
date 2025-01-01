@@ -30,24 +30,31 @@ export default function HomePage() {
 
     return (
         <Page title="Editor">
-            <div className="h-12 top-0 bg-white flex items-center px-2">
-                <button
-                    className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
-                    onClick={addChapter}
-                >
-                    <i className="bi bi-plus-lg"></i>
-                </button>
-            </div>
             <div className="grid grid-cols-2">
-                <div className="overflow-y-auto" style={{ maxHeight: "calc(100vh - 48px)" }}>
-                    {content && content.map(chapter => (
-                        <Chapter
-                            key={"chapter-" + chapter.id}
-                            chapter={chapter}
-                        />
-                    ))}
+                <div>
+                    <div className="h-12 flex items-center px-2 bg-neutral-800 text-neutral-100">
+                        <div className="text-lg text-neutral-500">
+                            Logic
+                        </div>
+                        <div className="flex gap-2 ml-auto">
+                            <button
+                                className="w-8 h-8 flex items-center justify-center text-sm border border-neutral-600 rounded-sm hover:text-neutral-400"
+                                onClick={addChapter}
+                            >
+                                <i className="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div className="overflow-y-auto" style={{ maxHeight: "calc(100vh - 48px)" }}>
+                        {content && content.map(chapter => (
+                            <Chapter
+                                key={"chapter-" + chapter.id}
+                                chapter={chapter}
+                            />
+                        ))}
+                    </div>
                 </div>
-                <div className="overflow-y-auto p-8" style={{ maxHeight: "calc(100vh - 48px)" }}>
+                <div className="h-screen overflow-y-auto p-8">
                     {content && content.map(chapter => (
                         <ChapterPreview
                             key={"chapter-preview-" + chapter.id}
