@@ -1,6 +1,6 @@
 export default function Part({ chapterIndex, sectionIndex, unitIndex, part }) {
     async function handleDeletePart() {
-        if (confirm("Delete part?")) {
+        if (window.confirm("Delete part?")) {
             const res = await fetch(`/api/delete-part?partId=${part.id}`, { method: "DELETE" });
             const json = await res.json();
 

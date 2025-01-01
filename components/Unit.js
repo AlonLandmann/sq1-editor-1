@@ -18,7 +18,7 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
     async function handleDeleteUnit(e) {
         e.stopPropagation();
 
-        if (confirm("Delete unit?")) {
+        if (window.confirm("Delete unit?")) {
             const res = await fetch(`/api/delete-unit?unitId=${unit.id}`, { method: "DELETE" });
             const json = await res.json();
 

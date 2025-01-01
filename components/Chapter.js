@@ -18,7 +18,7 @@ export default function Chapter({ chapter }) {
     async function handleDeleteChapter(e) {
         e.stopPropagation();
         
-        if (confirm("Delete chapter?")) {
+        if (window.confirm("Delete chapter?")) {
             const res = await fetch(`/api/delete-chapter?chapterId=${chapter.id}`, { method: "DELETE" });
             const json = await res.json();
 

@@ -18,7 +18,7 @@ export default function Section({ chapterIndex, section }) {
     async function handleDeleteSection(e) {
         e.stopPropagation();
 
-        if (confirm("Delete section?")) {
+        if (window.confirm("Delete section?")) {
             const res = await fetch(`/api/delete-section?sectionId=${section.id}`, { method: "DELETE" });
             const json = await res.json();
 
