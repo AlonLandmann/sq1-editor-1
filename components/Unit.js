@@ -58,18 +58,20 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
                     {chapterIndex + 1}.{sectionIndex + 1}.{unit.index + 1}
                 </div>
                 <div className="text-base">
-                    {unit.name || "---"}
+                    Name: {unit.name}
                 </div>
                 <div>Type: {unit.type}</div>
                 <div>Content: {unit.content}</div>
                 <div>Proof: {unit.proof}</div>
                 <div className="flex gap-2 ml-auto">
-                    <button
-                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
-                        onClick={handleAddPart}
-                    >
-                        <i className="bi bi-plus-lg"></i>
-                    </button>
+                    {unit.type !== "paragraph" &&
+                        <button
+                            className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                            onClick={handleAddPart}
+                        >
+                            <i className="bi bi-plus-lg"></i>
+                        </button>
+                    }
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
                         onClick={handleRenameUnit}
@@ -84,7 +86,7 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
                     </button>
                 </div>
             </div>
-            <div>
+            <div className="ml-8">
                 {!collapsed && unit.parts.map(part => (
                     <Part
                         key={part.id}

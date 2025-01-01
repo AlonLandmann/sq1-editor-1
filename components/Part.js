@@ -32,7 +32,7 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part }) {
                 {chapterIndex + 1}.{sectionIndex + 1}.{unitIndex + 1}.{part.index + 1}
             </div>
             <div className="text-sm">
-                {part.name || "-"}
+                Name: {part.name}
             </div>
             <div>Content: {part.content}</div>
             <div>Proof: {part.proof}</div>

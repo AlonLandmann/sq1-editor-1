@@ -26,9 +26,9 @@ model Section {
 model Unit {
     id        Int     @id @default(autoincrement())
     index     Int
-    type      String  @default("paragraph")
+    type      String
     name      String?
-    content   String? @default("---")
+    content   String
     proof     String?
     section   Section @relation(fields: [sectionId], references: [id])
     sectionId Int
@@ -39,7 +39,7 @@ model Part {
     id      Int     @id @default(autoincrement())
     index   Int
     name    String?
-    content String  @default("---")
+    content String
     proof   String?
     unit    Unit    @relation(fields: [unitId], references: [id])
     unitId  Int

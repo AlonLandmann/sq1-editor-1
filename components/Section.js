@@ -7,11 +7,15 @@ export default function Section({ chapterIndex, section }) {
     async function handleAddUnit(e) {
         e.stopPropagation();
 
-        const res = await fetch(`/api/add-unit?sectionId=${section.id}`, { method: "POST" });
+        const type = window.prompt("Select unit type: n, d, a, t, tx, p.");
+
+        const res = await fetch(`/api/add-unit?sectionId=${section.id}&type=${type}`, { method: "POST" });
         const json = await res.json();
 
         if (json.success) {
             window.location.reload();
+        } else {
+            window.alert(json.message);
         }
     }
 
