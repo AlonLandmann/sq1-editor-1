@@ -1,8 +1,10 @@
 import { produce } from "immer";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setContent }) {
     const [editingContent, setEditingContent] = useState(false);
+    const originalContent = useMemo(() => part.content, []);
+    const contentIsAltered = part.content !== originalContent;
 
     function handleEditContent(e) {
         e.stopPropagation();
@@ -14,6 +16,18 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
         setContent(produce(draft => {
             draft[chapterIndex].sections[sectionIndex].units[unitIndex].parts[part.index].content = e.target.value;
         }));
+    }
+
+    function handleResetContentEdit() {
+        if (window.confirm("Are you sure you'd like to reset the content to its original state?")) {
+            setContent(produce(draft => {
+                draft[chapterIndex].sections[sectionIndex].units[unitIndex].parts[part.index].content = originalContent;
+            }));
+        }
+    }
+
+    async function handleSubmitContentEdit() {
+
     }
 
     async function handleDeletePart() {
@@ -56,8 +70,11 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
                 }
                 <div className="flex gap-2 ml-auto">
                     <button
-                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
                         onClick={handleEditContent}
+                        className={`
+                            w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500
+                            ${contentIsAltered ? " border-orange-200 text-orange-500 hover:text-orange-400" : ""}
+                        `}
                     >
                         {editingContent
                             ? <i className="bi bi-x-lg"></i>
@@ -82,15 +99,27 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
                 <div className="flex">
                     <textarea
                         className="w-full outline-none bg-neutral-50 p-2 font-mono text-xs text-neutral-800"
-                        spellcheck="false"
+                        spellCheck="false"
                         rows={10}
                         onChange={handleContentChange}
+                        value={part.content}
                     >
-                        {part.content}
+
                     </textarea>
-                    <button className="min-w-12 text-sm border-l border-r hover:text-neutral-500">
-                        <i className="bi bi-check2"></i>
-                    </button>
+                    <div className="grid grid-rows-2 min-w-12 border-l border-r gap-[1px] bg-gray-200">
+                        <button
+                            className="text-sm text-neutral-400 hover:text-neutral-700 bg-white"
+                            onClick={handleResetContentEdit}
+                        >
+                            <i className="bi bi-arrow-counterclockwise"></i>
+                        </button>
+                        <button
+                            className="text-sm text-neutral-400 hover:text-neutral-700 bg-white"
+                            onClick={handleSubmitContentEdit}
+                        >
+                            <i className="bi bi-check2"></i>
+                        </button>
+                    </div>
                 </div>
             }
         </div>
