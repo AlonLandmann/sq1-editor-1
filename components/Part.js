@@ -79,14 +79,19 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
                 </div>
             </div>
             {editingContent &&
-                <textarea
-                    className="w-full outline-none bg-neutral-50 p-2 font-mono text-xs text-neutral-800"
-                    spellcheck="false"
-                    rows={10}
-                    onChange={handleContentChange}
-                >
-                    {part.content}
-                </textarea>
+                <div className="flex">
+                    <textarea
+                        className="w-full outline-none bg-neutral-50 p-2 font-mono text-xs text-neutral-800"
+                        spellcheck="false"
+                        rows={10}
+                        onChange={handleContentChange}
+                    >
+                        {part.content}
+                    </textarea>
+                    <button className="min-w-12 text-sm border-l border-r hover:text-neutral-500">
+                        <i className="bi bi-check2"></i>
+                    </button>
+                </div>
             }
         </div>
     );

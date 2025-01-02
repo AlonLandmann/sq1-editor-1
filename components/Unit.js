@@ -112,14 +112,19 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
                 </div>
             </div>
             {editingContent &&
-                <textarea
-                    className="w-full outline-none bg-neutral-50 p-2 font-mono text-xs text-neutral-800"
-                    spellcheck="false"
-                    rows={10}
-                    onChange={handleContentChange}
-                >
-                    {unit.content}
-                </textarea>
+                <div className="flex">
+                    <textarea
+                        className="w-full outline-none bg-neutral-50 p-2 font-mono text-xs text-neutral-800"
+                        spellcheck="false"
+                        rows={10}
+                        onChange={handleContentChange}
+                    >
+                        {unit.content}
+                    </textarea>
+                    <button className="min-w-12 text-sm border-l border-r hover:text-neutral-500">
+                        <i className="bi bi-check2"></i>
+                    </button>
+                </div>
             }
             <div>
                 {!collapsed && unit.parts.map(part => (
