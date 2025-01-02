@@ -11,7 +11,7 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
     async function handleAddPart(e) {
         e.stopPropagation();
 
-        const res = await fetch(`/api/add-part?unitId=${unit.id}`, { method: "POST" });
+        const res = await window.fetch(`/api/add-part?unitId=${unit.id}`, { method: "POST" });
         const json = await res.json();
 
         if (json.success) {

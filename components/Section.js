@@ -9,7 +9,7 @@ export default function Section({ chapterIndex, section, setContent }) {
 
         const type = window.prompt("Select unit type: n, d, a, t, tx, p.");
 
-        const res = await fetch(`/api/add-unit?sectionId=${section.id}&type=${type}`, { method: "POST" });
+        const res = await window.fetch(`/api/add-unit?sectionId=${section.id}&type=${type}`, { method: "POST" });
         const json = await res.json();
 
         if (json.success) {
@@ -23,7 +23,7 @@ export default function Section({ chapterIndex, section, setContent }) {
         e.stopPropagation();
 
         if (window.confirm("Delete section?")) {
-            const res = await fetch(`/api/delete-section?sectionId=${section.id}`, { method: "DELETE" });
+            const res = await window.fetch(`/api/delete-section?sectionId=${section.id}`, { method: "DELETE" });
             const json = await res.json();
 
             if (json.success) {
@@ -39,7 +39,7 @@ export default function Section({ chapterIndex, section, setContent }) {
 
         const renameValue = window.prompt("Enter a new name: ");
 
-        const res = await fetch(`/api/rename-section?sectionId=${section.id}`, {
+        const res = await window.fetch(`/api/rename-section?sectionId=${section.id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ renameValue }),

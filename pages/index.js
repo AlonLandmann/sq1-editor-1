@@ -11,7 +11,7 @@ export default function HomePage() {
     }, []);
 
     async function getContent() {
-        const res = await fetch("/api/get-content");
+        const res = await window.fetch("/api/get-content");
         const json = await res.json();
 
         if (json.success) {
@@ -20,7 +20,7 @@ export default function HomePage() {
     }
 
     async function addChapter() {
-        const res = await fetch("/api/add-chapter", { method: "POST" });
+        const res = await window.fetch("/api/add-chapter", { method: "POST" });
         const json = await res.json();
 
         if (json.success) {

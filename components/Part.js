@@ -32,7 +32,7 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
 
     async function handleDeletePart() {
         if (window.confirm("Delete part?")) {
-            const res = await fetch(`/api/delete-part?partId=${part.id}`, { method: "DELETE" });
+            const res = await window.fetch(`/api/delete-part?partId=${part.id}`, { method: "DELETE" });
             const json = await res.json();
 
             if (json.success) {
@@ -44,7 +44,7 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
     async function handleRenamePart() {
         const renameValue = window.prompt("Enter a new name: ");
 
-        const res = await fetch(`/api/rename-part?partId=${part.id}`, {
+        const res = await window.fetch(`/api/rename-part?partId=${part.id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ renameValue }),

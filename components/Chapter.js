@@ -7,7 +7,7 @@ export default function Chapter({ chapter, setContent }) {
     async function handleAddSection(e) {
         e.stopPropagation();
 
-        const res = await fetch(`/api/add-section?chapterId=${chapter.id}`, { method: "POST" });
+        const res = await window.fetch(`/api/add-section?chapterId=${chapter.id}`, { method: "POST" });
         const json = await res.json();
 
         if (json.success) {
@@ -19,7 +19,7 @@ export default function Chapter({ chapter, setContent }) {
         e.stopPropagation();
         
         if (window.confirm("Delete chapter?")) {
-            const res = await fetch(`/api/delete-chapter?chapterId=${chapter.id}`, { method: "DELETE" });
+            const res = await window.fetch(`/api/delete-chapter?chapterId=${chapter.id}`, { method: "DELETE" });
             const json = await res.json();
 
             if (json.success) {
@@ -35,7 +35,7 @@ export default function Chapter({ chapter, setContent }) {
         
         const renameValue = window.prompt("Enter a new name: ");
 
-        const res = await fetch(`/api/rename-chapter?chapterId=${chapter.id}`, {
+        const res = await window.fetch(`/api/rename-chapter?chapterId=${chapter.id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ renameValue }),
