@@ -40,14 +40,30 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
     }
 
     async function handleSubmitContentEdit() {
+        if (!contentIsAltered) {
+            return window.alert("Content is unaltered");
+        }
 
+        const res = await window.fetch(`/api/update-unit-content?unitId=${unit.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content: unit.content }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        } else {
+            window.alert("An unexpected error occurred.");
+        }
     }
 
     async function handleDeleteUnit(e) {
         e.stopPropagation();
 
         if (window.confirm("Delete unit?")) {
-            const res = await fetch(`/api/delete-unit?unitId=${unit.id}`, { method: "DELETE" });
+            const res = await window.fetch(`/api/delete-unit?unitId=${unit.id}`, { method: "DELETE" });
             const json = await res.json();
 
             if (json.success) {
@@ -63,7 +79,7 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
 
         const renameValue = window.prompt("Enter a new name: ");
 
-        const res = await fetch(`/api/rename-unit?unitId=${unit.id}`, {
+        const res = await window.fetch(`/api/rename-unit?unitId=${unit.id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ renameValue }),

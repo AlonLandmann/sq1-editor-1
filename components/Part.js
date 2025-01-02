@@ -27,7 +27,23 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
     }
 
     async function handleSubmitContentEdit() {
+        if (!contentIsAltered) {
+            return window.alert("Content is unaltered"); 
+        }
 
+        const res = await window.fetch(`/api/update-part-content?partId=${part.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content: part.content }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        } else {
+            window.alert("An unexpected error occurred.");
+        }
     }
 
     async function handleDeletePart() {
