@@ -45,16 +45,17 @@ export default function HomePage() {
                             </button>
                         </div>
                     </div>
-                    <div className="overflow-y-auto" style={{ maxHeight: "calc(100vh - 48px)" }}>
+                    <div className="overflow-y-auto no-scrollbar" style={{ maxHeight: "calc(100vh - 48px)" }}>
                         {content && content.map(chapter => (
                             <Chapter
                                 key={"chapter-" + chapter.id}
                                 chapter={chapter}
+                                setContent={setContent}
                             />
                         ))}
                     </div>
                 </div>
-                <div className="h-screen overflow-y-auto p-8">
+                <div className="h-screen overflow-y-auto no-scrollbar p-8">
                     {content && content.map(chapter => (
                         <ChapterPreview
                             key={"chapter-preview-" + chapter.id}

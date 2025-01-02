@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Part from "./Part";
+import { produce } from "immer";
 
-export default function Unit({ chapterIndex, sectionIndex, unit }) {
+export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
     const [collapsed, setCollapsed] = useState(false);
+    const [editingContent, setEditingContent] = useState(false);
 
     async function handleAddPart(e) {
         e.stopPropagation();
@@ -13,6 +15,18 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
         if (json.success) {
             window.location.reload();
         }
+    }
+
+    function handleEditContent(e) {
+        e.stopPropagation();
+
+        setEditingContent(p => !p);
+    }
+
+    function handleContentChange(e) {
+        setContent(produce(draft => {
+            draft[chapterIndex].sections[sectionIndex].units[unit.index].content = e.target.value;
+        }));
     }
 
     async function handleDeleteUnit(e) {
@@ -76,6 +90,15 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
                     }
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleEditContent}
+                    >
+                        {editingContent
+                            ? <i className="bi bi-x-lg"></i>
+                            : <i className="bi bi-pen"></i>
+                        }
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
                         onClick={handleRenameUnit}
                     >
                         <i className="bi bi-input-cursor"></i>
@@ -88,7 +111,17 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
                     </button>
                 </div>
             </div>
-            <div className="ml-8">
+            {editingContent &&
+                <textarea
+                    className="w-full outline-none bg-neutral-50 p-2 font-mono text-xs text-neutral-800"
+                    spellcheck="false"
+                    rows={10}
+                    onChange={handleContentChange}
+                >
+                    {unit.content}
+                </textarea>
+            }
+            <div>
                 {!collapsed && unit.parts.map(part => (
                     <Part
                         key={part.id}
@@ -96,6 +129,7 @@ export default function Unit({ chapterIndex, sectionIndex, unit }) {
                         sectionIndex={sectionIndex}
                         unitIndex={unit.index}
                         part={part}
+                        setContent={setContent}
                     />
                 ))}
             </div>

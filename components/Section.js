@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Unit from "./Unit";
 
-export default function Section({ chapterIndex, section }) {
+export default function Section({ chapterIndex, section, setContent }) {
     const [collapsed, setCollapsed] = useState(false);
 
     async function handleAddUnit(e) {
@@ -94,6 +94,7 @@ export default function Section({ chapterIndex, section }) {
                         chapterIndex={chapterIndex}
                         sectionIndex={section.index}
                         unit={unit}
+                        setContent={setContent}
                     />
                 ))}
             </div>

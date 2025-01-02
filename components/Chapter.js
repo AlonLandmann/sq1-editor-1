@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Section from "./Section";
 
-export default function Chapter({ chapter }) {
+export default function Chapter({ chapter, setContent }) {
     const [collapsed, setCollapsed] = useState(false);
 
     async function handleAddSection(e) {
@@ -89,6 +89,7 @@ export default function Chapter({ chapter }) {
                         key={section.id}
                         chapterIndex={chapter.index}
                         section={section}
+                        setContent={setContent}
                     />
                 ))}
             </div>
