@@ -11,6 +11,7 @@ export default async function handler(req, res) {
         data: {
             index: partCount,
             unitId: Number(req.query.unitId),
+            content: "---",
         },
     });
 
