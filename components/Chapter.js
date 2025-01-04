@@ -15,21 +15,6 @@ export default function Chapter({ chapter, setContent }) {
         }
     }
 
-    async function handleDeleteChapter(e) {
-        e.stopPropagation();
-        
-        if (window.confirm("Delete chapter?")) {
-            const res = await window.fetch(`/api/delete-chapter?chapterId=${chapter.id}`, { method: "DELETE" });
-            const json = await res.json();
-
-            if (json.success) {
-                window.location.reload();
-            } else {
-                window.alert(json.message);
-            }
-        }
-    }
-
     async function handleRenameChapter(e) {
         e.stopPropagation();
         
@@ -47,6 +32,48 @@ export default function Chapter({ chapter, setContent }) {
             window.location.reload();
         } else {
             window.alert(json.message);
+        }
+    }
+
+    async function handleMoveChapter(e) {
+        e.stopPropagation();
+
+        const target = window.prompt("Enter the target index: ");
+
+        if (target === null) { 
+            return;
+        }
+
+        const res = await window.fetch(`/api/move-chapter?chapterId=${chapter.id}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                origin: chapter.index,
+                target: Number(target),
+            }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        } else {
+            window.alert(json.message);
+        }
+    }
+
+    async function handleDeleteChapter(e) {
+        e.stopPropagation();
+        
+        if (window.confirm("Delete chapter?")) {
+            const res = await window.fetch(`/api/delete-chapter?chapterId=${chapter.id}`, { method: "DELETE" });
+            const json = await res.json();
+
+            if (json.success) {
+                window.location.reload();
+            } else {
+                window.alert(json.message);
+            }
         }
     }
 
@@ -76,6 +103,12 @@ export default function Chapter({ chapter, setContent }) {
                         onClick={handleRenameChapter}
                     >
                         <i className="bi bi-input-cursor"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border border-neutral-600 rounded-sm hover:text-neutral-400"
+                        onClick={handleMoveChapter}
+                    >
+                        <i className="bi bi-arrow-right"></i>
                     </button>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border border-neutral-600 rounded-sm hover:text-neutral-400"
