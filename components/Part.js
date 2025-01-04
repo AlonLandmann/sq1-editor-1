@@ -89,17 +89,6 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
         }
     }
 
-    async function handleDeletePart() {
-        if (window.confirm("Delete part?")) {
-            const res = await window.fetch(`/api/delete-part?partId=${part.id}`, { method: "DELETE" });
-            const json = await res.json();
-
-            if (json.success) {
-                window.location.reload();
-            }
-        }
-    }
-
     async function handleRenamePart() {
         const renameValue = window.prompt("Enter a new name: ");
 
@@ -113,6 +102,44 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
 
         if (json.success) {
             window.location.reload();
+        }
+    }
+
+    async function handleMovePart(e) {
+        e.stopPropagation();
+
+        const target = window.prompt("Enter the target index: ");
+
+        if (target === null) {
+            return;
+        }
+
+        const res = await window.fetch(`/api/move-part?unitId=${part.unitId}&partId=${part.id}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                origin: part.index,
+                target: Number(target),
+            }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        } else {
+            window.alert(json.message);
+        }
+    }
+
+    async function handleDeletePart() {
+        if (window.confirm("Delete part?")) {
+            const res = await window.fetch(`/api/delete-part?partId=${part.id}`, { method: "DELETE" });
+            const json = await res.json();
+
+            if (json.success) {
+                window.location.reload();
+            }
         }
     }
 
@@ -162,6 +189,12 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
                         onClick={handleRenamePart}
                     >
                         <i className="bi bi-input-cursor"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleMovePart}
+                    >
+                        <i className="bi bi-arrow-down-up"></i>
                     </button>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
