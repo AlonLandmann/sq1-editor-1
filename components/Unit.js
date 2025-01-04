@@ -1,12 +1,15 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Part from "./Part";
 import { produce } from "immer";
 
 export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
     const [collapsed, setCollapsed] = useState(false);
     const [editingContent, setEditingContent] = useState(false);
+    const [editingProof, setEditingProof] = useState(false);
     const originalContent = useMemo(() => unit.content, []);
+    const originalProof = useMemo(() => unit.proof, []);
     const contentIsAltered = unit.content !== originalContent;
+    const proofIsAltered = unit.proof !== originalProof;
 
     async function handleAddPart(e) {
         e.stopPropagation();
@@ -25,9 +28,21 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
         setEditingContent(p => !p);
     }
 
+    function handleEditProof(e) {
+        e.stopPropagation();
+
+        setEditingProof(p => !p);
+    }
+
     function handleContentChange(e) {
         setContent(produce(draft => {
             draft[chapterIndex].sections[sectionIndex].units[unit.index].content = e.target.value;
+        }));
+    }
+
+    function handleProofChange(e) {
+        setContent(produce(draft => {
+            draft[chapterIndex].sections[sectionIndex].units[unit.index].proof = e.target.value;
         }));
     }
 
@@ -35,6 +50,14 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
         if (window.confirm("Are you sure you'd like to reset the content to its original state?")) {
             setContent(produce(draft => {
                 draft[chapterIndex].sections[sectionIndex].units[unit.index].content = originalContent;
+            }));
+        }
+    }
+
+    function handleResetProofEdit() {
+        if (window.confirm("Are you sure you'd like to reset the proof to its original state?")) {
+            setContent(produce(draft => {
+                draft[chapterIndex].sections[sectionIndex].units[unit.index].proof = originalProof;
             }));
         }
     }
@@ -48,6 +71,26 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ content: unit.content }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        } else {
+            window.alert("An unexpected error occurred.");
+        }
+    }
+
+    async function handleSubmitProofEdit() {
+        if (!proofIsAltered) {
+            return window.alert("Proof is unaltered");
+        }
+
+        const res = await window.fetch(`/api/update-unit-proof?unitId=${unit.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ proof: unit.proof }),
         });
 
         const json = await res.json();
@@ -130,6 +173,20 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
                             : <i className="bi bi-pen"></i>
                         }
                     </button>
+                    {typeof unit.proof === "string" &&
+                        <button
+                            onClick={handleEditProof}
+                            className={`
+                            w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500
+                            ${proofIsAltered ? " border-orange-200 text-orange-500 hover:text-orange-400" : ""}
+                        `}
+                        >
+                            {editingProof
+                                ? <i className="bi bi-x-lg"></i>
+                                : <i className="bi bi-slash-lg"></i>
+                            }
+                        </button>
+                    }
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
                         onClick={handleRenameUnit}
@@ -153,7 +210,7 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
                         onChange={handleContentChange}
                         value={unit.content}
                     >
-                        
+
                     </textarea>
                     <div className="grid grid-rows-2 min-w-12 border-l border-r gap-[1px] bg-gray-200">
                         <button
@@ -165,6 +222,33 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
                         <button
                             className="text-sm text-neutral-400 hover:text-neutral-700 bg-white"
                             onClick={handleSubmitContentEdit}
+                        >
+                            <i className="bi bi-check2"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+            {editingProof &&
+                <div className="flex">
+                    <textarea
+                        className="w-full outline-none bg-neutral-50 p-2 font-mono text-xs text-neutral-800"
+                        spellCheck="false"
+                        rows={10}
+                        onChange={handleProofChange}
+                        value={unit.proof}
+                    >
+
+                    </textarea>
+                    <div className="grid grid-rows-2 min-w-12 border-l border-r gap-[1px] bg-gray-200">
+                        <button
+                            className="text-sm text-neutral-400 hover:text-neutral-700 bg-white"
+                            onClick={handleResetProofEdit}
+                        >
+                            <i className="bi bi-arrow-counterclockwise"></i>
+                        </button>
+                        <button
+                            className="text-sm text-neutral-400 hover:text-neutral-700 bg-white"
+                            onClick={handleSubmitProofEdit}
                         >
                             <i className="bi bi-check2"></i>
                         </button>

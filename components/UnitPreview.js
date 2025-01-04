@@ -19,6 +19,11 @@ export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
             <div>
                 {unit.content}
             </div>
+            {unit.proof &&
+                <div>
+                    Proof: {unit.proof}
+                </div>
+            }
             <div className="ml-8">
                 {unit.parts.map(part => (
                     <PartPreview
