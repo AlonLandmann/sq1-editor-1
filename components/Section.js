@@ -113,7 +113,7 @@ export default function Section({ chapterIndex, section, setContent }) {
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
                         onClick={handleMoveSection}
                     >
-                        <i className="bi bi-arrow-right"></i>
+                        <i className="bi bi-arrow-down-up"></i>
                     </button>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"

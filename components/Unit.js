@@ -102,21 +102,6 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
         }
     }
 
-    async function handleDeleteUnit(e) {
-        e.stopPropagation();
-
-        if (window.confirm("Delete unit?")) {
-            const res = await window.fetch(`/api/delete-unit?unitId=${unit.id}`, { method: "DELETE" });
-            const json = await res.json();
-
-            if (json.success) {
-                window.location.reload();
-            } else {
-                window.alert(json.message);
-            }
-        }
-    }
-
     async function handleRenameUnit(e) {
         e.stopPropagation();
 
@@ -132,6 +117,48 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
 
         if (json.success) {
             window.location.reload();
+        }
+    }
+
+    async function handleMoveUnit(e) {
+        e.stopPropagation();
+
+        const target = window.prompt("Enter the target index: ");
+
+        if (target === null) { 
+            return;
+        }
+
+        const res = await window.fetch(`/api/move-unit?sectionId=${unit.sectionId}&unitId=${unit.id}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                origin: unit.index,
+                target: Number(target),
+            }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        } else {
+            window.alert(json.message);
+        }
+    }
+
+    async function handleDeleteUnit(e) {
+        e.stopPropagation();
+
+        if (window.confirm("Delete unit?")) {
+            const res = await window.fetch(`/api/delete-unit?unitId=${unit.id}`, { method: "DELETE" });
+            const json = await res.json();
+
+            if (json.success) {
+                window.location.reload();
+            } else {
+                window.alert(json.message);
+            }
         }
     }
 
@@ -195,6 +222,12 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
                         onClick={handleRenameUnit}
                     >
                         <i className="bi bi-input-cursor"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleMoveUnit}
+                    >
+                        <i className="bi bi-arrow-down-up"></i>
                     </button>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
