@@ -31,7 +31,7 @@ export default function HomePage() {
     return (
         <Page title="Editor">
             <div className="grid grid-cols-2">
-                <div>
+                <div className="h-screen overflow-y-auto no-scrollbar">
                     <div className="h-12 flex items-center px-2 bg-neutral-800 text-neutral-100">
                         <div className="text-lg text-neutral-500">
                             Logic
@@ -45,7 +45,7 @@ export default function HomePage() {
                             </button>
                         </div>
                     </div>
-                    <div className="overflow-y-auto no-scrollbar" style={{ maxHeight: "calc(100vh - 48px)" }}>
+                    <div>
                         {content && content.map(chapter => (
                             <Chapter
                                 key={"chapter-" + chapter.id}
