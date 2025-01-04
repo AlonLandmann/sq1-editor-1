@@ -19,21 +19,6 @@ export default function Section({ chapterIndex, section, setContent }) {
         }
     }
 
-    async function handleDeleteSection(e) {
-        e.stopPropagation();
-
-        if (window.confirm("Delete section?")) {
-            const res = await window.fetch(`/api/delete-section?sectionId=${section.id}`, { method: "DELETE" });
-            const json = await res.json();
-
-            if (json.success) {
-                window.location.reload();
-            } else {
-                window.alert(json.message);
-            }
-        }
-    }
-
     async function handleRenameSection(e) {
         e.stopPropagation();
 
@@ -53,6 +38,49 @@ export default function Section({ chapterIndex, section, setContent }) {
             window.alert(json.message);
         }
     }
+
+    async function handleMoveSection(e) {
+        e.stopPropagation();
+
+        const target = window.prompt("Enter the target index: ");
+
+        if (target === null) { 
+            return;
+        }
+
+        const res = await window.fetch(`/api/move-section?chapterId=${section.chapterId}&sectionId=${section.id}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                origin: section.index,
+                target: Number(target),
+            }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            window.location.reload();
+        } else {
+            window.alert(json.message);
+        }
+    }
+    
+    async function handleDeleteSection(e) {
+        e.stopPropagation();
+
+        if (window.confirm("Delete section?")) {
+            const res = await window.fetch(`/api/delete-section?sectionId=${section.id}`, { method: "DELETE" });
+            const json = await res.json();
+
+            if (json.success) {
+                window.location.reload();
+            } else {
+                window.alert(json.message);
+            }
+        }
+    }
+
 
     return (
         <div>
@@ -80,6 +108,12 @@ export default function Section({ chapterIndex, section, setContent }) {
                         onClick={handleRenameSection}
                     >
                         <i className="bi bi-input-cursor"></i>
+                    </button>
+                    <button
+                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                        onClick={handleMoveSection}
+                    >
+                        <i className="bi bi-arrow-right"></i>
                     </button>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
