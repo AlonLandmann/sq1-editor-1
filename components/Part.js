@@ -117,7 +117,7 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
     }
 
     return (
-        <div>
+        <div className="border-t border-b border-white hover:border-neutral-300">
             <div className="p-2 flex gap-3 items-center">
                 <div className="text-sm w-10">
                     {chapterIndex + 1}.{sectionIndex + 1}.{unitIndex + 1}.{part.index + 1}
