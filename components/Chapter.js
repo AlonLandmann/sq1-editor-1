@@ -69,6 +69,8 @@ export default function Chapter({ chapter, setContent }) {
                     >
                         <i className="bi bi-plus-lg"></i>
                     </button>
+                    <div className="w-8 h-8"></div>
+                    <div className="w-8 h-8"></div>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border border-neutral-600 rounded-sm hover:text-neutral-400"
                         onClick={handleRenameChapter}

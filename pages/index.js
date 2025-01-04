@@ -43,6 +43,10 @@ export default function HomePage() {
                             >
                                 <i className="bi bi-plus-lg"></i>
                             </button>
+                            <div className="w-8 h-8"></div>
+                            <div className="w-8 h-8"></div>
+                            <div className="w-8 h-8"></div>
+                            <div className="w-8 h-8"></div>
                         </div>
                     </div>
                     <div>

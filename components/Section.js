@@ -73,6 +73,8 @@ export default function Section({ chapterIndex, section, setContent }) {
                     >
                         <i className="bi bi-plus-lg"></i>
                     </button>
+                    <div className="w-8 h-8"></div>
+                    <div className="w-8 h-8"></div>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
                         onClick={handleRenameSection}

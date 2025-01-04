@@ -51,7 +51,7 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
 
     async function handleSubmitContentEdit() {
         if (!contentIsAltered) {
-            return window.alert("Content is unaltered"); 
+            return window.alert("Content is unaltered");
         }
 
         const res = await window.fetch(`/api/update-part-content?partId=${part.id}`, {
@@ -71,7 +71,7 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
 
     async function handleSubmitProofEdit() {
         if (!proofIsAltered) {
-            return window.alert("Proof is unaltered"); 
+            return window.alert("Proof is unaltered");
         }
 
         const res = await window.fetch(`/api/update-part-proof?partId=${part.id}`, {
@@ -153,6 +153,9 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
                                 : <i className="bi bi-slash-lg"></i>
                             }
                         </button>
+                    }
+                    {typeof part.proof !== "string" &&
+                        <div className="w-8 h-8"></div>
                     }
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"

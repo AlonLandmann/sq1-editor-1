@@ -187,6 +187,9 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
                             }
                         </button>
                     }
+                    {typeof unit.proof !== "string" &&
+                        <div className="w-8 h-8"></div>
+                    }
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
                         onClick={handleRenameUnit}
