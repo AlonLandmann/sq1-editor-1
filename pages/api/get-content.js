@@ -28,5 +28,18 @@ export default async function (req, res) {
         },
     });
 
+    let number = 0;
+
+    content.forEach(chapter => {
+        chapter.sections.forEach(section => {
+            section.units.forEach(unit => {
+                if (unit.type !== "paragraph") {
+                    number += 1;
+                    unit.number = number;
+                }
+            });
+        });
+    });
+
     return res.status(200).json({ success: true, content: content });
 };

@@ -6,7 +6,7 @@ export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
             {unit.type !== "paragraph" &&
                 <div className="p-2 flex gap-3 items-center">
                     <div className="w-10">
-                        {chapterIndex + 1}.{sectionIndex + 1}.{unit.index + 1}
+                        {unit.number}
                     </div>
                     <div className="w-6 text-neutral-500">
                         {unit.type.charAt(0).toUpperCase()}

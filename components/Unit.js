@@ -125,7 +125,7 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
 
         const target = window.prompt("Enter the target index: ");
 
-        if (target === null) { 
+        if (target === null) {
             return;
         }
 
@@ -168,17 +168,17 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
                 className="p-2 flex gap-3 items-center"
                 onClick={() => setCollapsed(p => !p)}
             >
-                <div className="text-base w-10">
-                    {chapterIndex + 1}.{sectionIndex + 1}.{unit.index + 1}
-                </div>
-                <div className="text-base w-6 text-neutral-500">
-                    {unit.type.charAt(0).toUpperCase()}
-                </div>
-                {unit.name &&
-                    <div className="text-base">
-                        {unit.name}
+                <div className="text-base min-w-24 text-neutral-500 flex justify-between mr-2">
+                    <div>
+                        {unit.type.charAt(0).toUpperCase()}{unit.type.slice(1)}
                     </div>
-                }
+                    <div>
+                        {unit.number || "-"}
+                    </div>
+                </div>
+                <div className="text-base truncate min-w-0">
+                    {unit.name || unit.content}
+                </div>
                 <div className="flex gap-2 ml-auto">
                     {unit.type !== "paragraph" &&
                         <button
@@ -187,6 +187,9 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
                         >
                             <i className="bi bi-plus-lg"></i>
                         </button>
+                    }
+                    {unit.type === "paragraph" &&
+                        <div className="w-8 h-8"></div>
                     }
                     <button
                         onClick={handleEditContent}
@@ -217,12 +220,17 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
                     {typeof unit.proof !== "string" &&
                         <div className="w-8 h-8"></div>
                     }
-                    <button
-                        className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
-                        onClick={handleRenameUnit}
-                    >
-                        <i className="bi bi-input-cursor"></i>
-                    </button>
+                    {unit.type !== "paragraph" &&
+                        <button
+                            className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
+                            onClick={handleRenameUnit}
+                        >
+                            <i className="bi bi-input-cursor"></i>
+                        </button>
+                    }
+                    {unit.type === "paragraph" &&
+                        <div className="w-8 h-8"></div>
+                    }
                     <button
                         className="w-8 h-8 flex items-center justify-center text-sm border rounded-sm hover:text-neutral-500"
                         onClick={handleMoveUnit}
