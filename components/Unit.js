@@ -163,9 +163,9 @@ export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
     }
 
     return (
-        <div className="border-t border-b border-white hover:border-neutral-500">
+        <div>
             <div
-                className="p-2 flex gap-3 items-center"
+                className="p-2 flex gap-3 items-center hover:bg-gray-50"
                 onClick={() => setCollapsed(p => !p)}
             >
                 <div className="text-base min-w-24 text-neutral-500 flex justify-between mr-2">
