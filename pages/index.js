@@ -32,9 +32,12 @@ export default function HomePage() {
         <Page title="Editor">
             <div className="grid grid-cols-2">
                 <div className="h-screen overflow-y-auto no-scrollbar">
-                    <div className="h-12 flex items-center px-2 bg-neutral-800 text-neutral-100">
-                        <div className="text-lg text-neutral-500">
-                            Logic
+                    <div className="h-12 flex items-center gap-3 px-2 bg-neutral-800 text-neutral-100">
+                        <div className="font-medium text-xl w-10">
+                            M
+                        </div>
+                        <div className="font-medium text-xl">
+                            Logical Foundations
                         </div>
                         <div className="flex gap-2 ml-auto">
                             <button
