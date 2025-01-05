@@ -1,7 +1,7 @@
 import prisma from "@/server/prisma";
 
 export default async function handler(req, res) {
-    if (!["n", "d", "a", "t", "tx", "p"].includes(req.query.type)) {
+    if (!["n", "d", "a", "t", "tx", "e", "p"].includes(req.query.type)) {
         return res.status(400).json({ success: false, message: "Invalid unit type." });
     }
 
@@ -18,32 +18,32 @@ export default async function handler(req, res) {
 
     if (req.query.type === "n") {
         data.type = "notion";
-        data.name = "Notion Name";
+        data.name = "Name";
         data.content = "---";
     }
 
     if (req.query.type === "d") {
         data.type = "definition";
-        data.name = "Definition Name";
+        data.name = "Name";
         data.content = "---";
     }
 
     if (req.query.type === "a") {
         data.type = "axiom";
-        data.name = "Axiom Name";
+        data.name = "Name";
         data.content = "---";
     }
 
     if (req.query.type === "t") {
         data.type = "theorem";
-        data.name = "Theorem Name";
+        data.name = "Name";
         data.content = "---";
         data.proof = "---";
     }
 
     if (req.query.type === "tx") {
         data.type = "theorem";
-        data.name = "Theorem Name";
+        data.name = "Name";
         data.content = "---";
         data.parts = {
             create: [
@@ -59,6 +59,12 @@ export default async function handler(req, res) {
                 },
             ],
         };
+    }
+
+    if (req.query.type === "e") {
+        data.type = "example";
+        data.name = "Name";
+        data.content = "---";
     }
 
     if (req.query.type === "p") {

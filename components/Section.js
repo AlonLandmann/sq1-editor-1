@@ -7,7 +7,7 @@ export default function Section({ chapterIndex, section, setContent }) {
     async function handleAddUnit(e) {
         e.stopPropagation();
 
-        const type = window.prompt("Select unit type: n, d, a, t, tx, p.");
+        const type = window.prompt("Select unit type: n, d, a, t, tx, e, p.");
 
         const res = await window.fetch(`/api/add-unit?sectionId=${section.id}&type=${type}`, { method: "POST" });
         const json = await res.json();
