@@ -1,3 +1,4 @@
+import { intToRoman } from "@/lib/roman";
 import { produce } from "immer";
 import { useMemo, useState } from "react";
 
@@ -146,8 +147,8 @@ export default function Part({ chapterIndex, sectionIndex, unitIndex, part, setC
     return (
         <div className="border-t border-b border-white hover:border-neutral-300">
             <div className="p-2 flex gap-3 items-center">
-                <div className="text-sm w-10">
-                    {chapterIndex + 1}.{sectionIndex + 1}.{unitIndex + 1}.{part.index + 1}
+                <div className="text-sm w-24 text-center text-neutral-500">
+                    {intToRoman(part.index + 1)}
                 </div>
                 {part.name &&
                     <div className="text-sm">
