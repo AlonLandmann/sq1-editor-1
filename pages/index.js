@@ -63,7 +63,7 @@ export default function HomePage() {
                         ))}
                     </div>
                 </div>
-                <div className="h-screen overflow-y-auto no-scrollbar p-8">
+                <div className="h-screen overflow-y-auto no-scrollbar p-10 flex flex-col gap-10">
                     {content && content.map(chapter => (
                         <ChapterPreview
                             key={"chapter-preview-" + chapter.id}

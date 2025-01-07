@@ -1,14 +1,22 @@
+import { intToRoman } from "@/lib/roman";
+
 export default function PartPreview({ chapterIndex, sectionIndex, unitIndex, part }) {
     return (
-        <div className="p-2 flex gap-3 items-center">
-            <div className="text-sm w-10">
-                {chapterIndex + 1}.{sectionIndex + 1}.{unitIndex + 1}.{part.index + 1}
+        <div>
+            <div className="p-2 flex gap-3 items-center">
+                <div className="w-10 text-base text-center text-neutral-400">
+                    {intToRoman(part.index + 1)}
+                </div>
+                {part.name &&
+                    <div>
+                        ({part.name})
+                    </div>
+                }
+                <div>
+                    {part.content}
+                </div>
             </div>
-            <div className="text-sm">
-                Name: {part.name}
-            </div>
-            <div>Content: {part.content}</div>
-            <div>Proof: {part.proof}</div>
+            {/* {part.proof && <></>} */}
         </div>
     );
 };

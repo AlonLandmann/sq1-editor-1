@@ -1,21 +1,24 @@
+import Paragraph from "./Paragraph";
 import PartPreview from "./PartPreview";
 
 export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
+    if (unit.type === "paragraph") {
+        return <Paragraph unit={unit} />;
+    }
+
     return (
-        <div>
-            {unit.type !== "paragraph" &&
-                <div className="p-2 flex gap-3 items-center">
-                    <div className="w-10">
-                        {unit.number}
-                    </div>
-                    <div className="w-6 text-neutral-500">
-                        {unit.type.charAt(0).toUpperCase()}
-                    </div>
-                    <div>
-                        {unit.name}
-                    </div>
+        <div className="border rounded-sm px-[24px] py-4">
+            <div className="flex items-center text-neutral-400 mb-2">
+                <div className="mr-3">
+                    {unit.type.charAt(0).toUpperCase()}{unit.type.slice(1)}
                 </div>
-            }
+                <div className="mr-6">
+                    {unit.number}
+                </div>
+                <div>
+                    {unit.name}
+                </div>
+            </div>
             <div>
                 {unit.content}
             </div>
@@ -24,7 +27,7 @@ export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
                     Proof: {unit.proof}
                 </div>
             }
-            <div className="ml-8">
+            <div className="flex flex-col gap-[2px] mt-2">
                 {unit.parts.map(part => (
                     <PartPreview
                         key={part.id}
