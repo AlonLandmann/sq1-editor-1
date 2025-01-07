@@ -27,17 +27,19 @@ export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
                     Proof: {unit.proof}
                 </div>
             }
-            <div className="flex flex-col gap-[2px] mt-2">
-                {unit.parts.map(part => (
-                    <PartPreview
-                        key={part.id}
-                        chapterIndex={chapterIndex}
-                        sectionIndex={sectionIndex}
-                        unitIndex={unit.index}
-                        part={part}
-                    />
-                ))}
-            </div>
-        </div >
+            {unit.parts.length > 0 &&
+                <div className="flex flex-col gap-[2px] mt-2">
+                    {unit.parts.map(part => (
+                        <PartPreview
+                            key={part.id}
+                            chapterIndex={chapterIndex}
+                            sectionIndex={sectionIndex}
+                            unitIndex={unit.index}
+                            part={part}
+                        />
+                    ))}
+                </div>
+            }
+        </div>
     );
 };

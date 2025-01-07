@@ -11,7 +11,7 @@ export default function SectionPreview({ chapterIndex, section }) {
                     {section.name}
                 </div>
             </div>
-            <div className="flex flex-col text-lg py-5 gap-5">
+            <div className="flex flex-col py-5 gap-5 text-[17px] leading-tight text-[#333]">
                 {section.units.map(unit => (
                     <UnitPreview
                         key={unit.id}
