@@ -15,7 +15,7 @@ export default function HomePage() {
         const json = await res.json();
 
         if (json.success) {
-            setContent(json.content)
+            setContent(json.content);
         }
     }
 
