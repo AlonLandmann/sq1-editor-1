@@ -1,5 +1,6 @@
 import Paragraph from "./Paragraph";
 import PartPreview from "./PartPreview";
+import TeX from "./tex/TeX";
 
 export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
     if (unit.type === "paragraph") {
@@ -20,13 +21,13 @@ export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
                 </div>
             </div>
             <div>
-                {unit.content}
+                <TeX tex={unit.content} />
             </div>
-            {unit.proof &&
+            {/* {unit.proof &&
                 <div>
                     Proof: {unit.proof}
                 </div>
-            }
+            } */}
             {unit.parts.length > 0 &&
                 <div className="flex flex-col gap-[2px] mt-2">
                     {unit.parts.map(part => (

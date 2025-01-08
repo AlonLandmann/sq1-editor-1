@@ -7,7 +7,10 @@ module.exports = {
     ],
     theme: {
         extend: {
-            // extend tailwind theme here
+            colors: {
+                "ref": "#b7a675",
+                "ref-hover": "#d9d0b6",
+            }
         },
     },
     plugins: [],

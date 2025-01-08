@@ -1,4 +1,5 @@
 import { intToRoman } from "@/lib/roman";
+import TeX from "./tex/TeX";
 
 export default function PartPreview({ chapterIndex, sectionIndex, unitIndex, part }) {
     return (
@@ -13,7 +14,7 @@ export default function PartPreview({ chapterIndex, sectionIndex, unitIndex, par
                     </div>
                 }
                 <div>
-                    {part.content}
+                    <TeX tex={part.content} />
                 </div>
             </div>
             {/* {part.proof && <></>} */}
