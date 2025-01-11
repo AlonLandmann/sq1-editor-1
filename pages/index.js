@@ -37,7 +37,7 @@ export default function HomePage() {
                             M
                         </div>
                         <div className="font-medium text-xl">
-                            Logical Foundations
+                            Measure, Integration, and Real Analysis
                         </div>
                         <div className="flex gap-2 ml-auto">
                             <button

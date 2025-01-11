@@ -17,8 +17,8 @@ export default function TeX({ tex }) {
 
     for (let i = 0; i <= tex.length; i++) {
         if (escapePattern.test(tex.slice(i))) {
-            buffer = buffer.concat(tex[i + 1]);
-            i++;
+            buffer += tex[i + 1];
+            i += 1;
         } else if (mode === "text") {
             if (i === tex.length) { pushText() }
             else if (tex.slice(i, i + 2) === "[[") { pushText(); mode = "blockMath"; i++ }
@@ -82,7 +82,7 @@ export default function TeX({ tex }) {
 
     function pushNewLine() {
         parsed.push(
-            <div key={v4()} style={{ height: "25px" }}></div>
+            <div key={v4()} style={{ height: "20px" }}></div>
         );
     }
 

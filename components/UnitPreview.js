@@ -23,11 +23,18 @@ export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
             <div>
                 <TeX tex={unit.content} />
             </div>
-            {/* {unit.proof &&
-                <div>
-                    Proof: {unit.proof}
+            {unit.proof &&
+                <div className="pt-4">
+                    <hr/>
+                    <div className="pt-4">
+                        <strong>proof</strong>.{" "}
+                        <TeX tex={unit.proof} />
+                        <div className="flex justify-end">
+                            <i className="bi bi-square-fill text-[9px] text-neutral-200"></i>
+                        </div>
+                    </div>
                 </div>
-            } */}
+            }
             {unit.parts.length > 0 &&
                 <div className="flex flex-col gap-[2px] mt-2">
                     {unit.parts.map(part => (
