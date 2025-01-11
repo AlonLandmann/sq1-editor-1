@@ -1,8 +1,11 @@
+import { useState } from "react";
 import Paragraph from "./Paragraph";
 import PartPreview from "./PartPreview";
 import TeX from "./tex/TeX";
 
 export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
+    const [proofInView, setProofInView] = useState(true);
+
     if (unit.type === "paragraph") {
         return <Paragraph unit={unit} />;
     }
@@ -19,13 +22,24 @@ export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
                 <div>
                     {unit.name}
                 </div>
+                {unit.proof &&
+                    <div
+                        className="ml-auto transition text-sm text-neutral-300 hover:text-neutral-400 cursor-pointer"
+                        onClick={() => setProofInView(p => !p)}
+                    >
+                        {proofInView
+                            ? <i className="bi bi-chevron-down"></i>
+                            : <i className="bi bi-chevron-left"></i>
+                        }
+                    </div>
+                }
             </div>
             <div>
                 <TeX tex={unit.content} />
             </div>
-            {unit.proof &&
+            {unit.proof && proofInView &&
                 <div className="pt-4">
-                    <hr/>
+                    <hr />
                     <div className="pt-4">
                         <strong>proof</strong>.{" "}
                         <TeX tex={unit.proof} />
