@@ -4,7 +4,7 @@ import PartPreview from "./PartPreview";
 import TeX from "./tex/TeX";
 
 export default function UnitPreview({ chapterIndex, sectionIndex, unit }) {
-    const [proofInView, setProofInView] = useState(true);
+    const [proofInView, setProofInView] = useState(false);
 
     if (unit.type === "paragraph") {
         return <Paragraph unit={unit} />;

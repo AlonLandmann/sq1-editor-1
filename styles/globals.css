@@ -17,11 +17,11 @@
     }
 }
 
-* {
+body {
     font-family: "Crimson Pro", serif;
 }
 
 .katex {
     font-size: 1em !important;
-    line-height: 21.25px !important;
+    /* line-height: 21.25px !important; */
 }

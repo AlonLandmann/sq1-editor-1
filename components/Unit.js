@@ -3,7 +3,7 @@ import Part from "./Part";
 import { produce } from "immer";
 
 export default function Unit({ chapterIndex, sectionIndex, unit, setContent }) {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const [editingContent, setEditingContent] = useState(false);
     const [editingProof, setEditingProof] = useState(false);
     const originalContent = useMemo(() => unit.content, []);
